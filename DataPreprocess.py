@@ -63,13 +63,13 @@ if __name__ == '__main__':
     all_data = all_data[1:,:]*1.0
     ### time,x,y, rssi0,rssi1 .... rssi n
     plt.figure()
-    plt.plot(all_data[:,0])
+    plt.plot(all_data[:,0],'-*')
     plt.grid()
 
     print('average time interval :', np.mean(all_data[1:,0]-all_data[:-1,0]))
 
     plt.figure()
-    plt.plot(all_data[:,1],all_data[:,2])
+    plt.plot(all_data[:,1],all_data[:,2],'-*')
     plt.grid()
 
     plt.figure()
