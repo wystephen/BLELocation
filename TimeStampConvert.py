@@ -29,12 +29,15 @@ import time
 
 
 def timestampconvert(str='10-04-31-73'):
+    print(str)
     the_time = 0.0
     for i in range(3):
         # print(i)
+        # print(str.split('-')[i],':',str.split('-')[i],':')
         the_time = the_time*60.0 + float(str.split('-')[i])
         if(i>0 and float(str.split('-')[i])>60.0):
             print('error at timestampconvert :',str,'some value is out of range')
+
 
 
     the_time += float(str.split('-')[3]) / 1000.0
