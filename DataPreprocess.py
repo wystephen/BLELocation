@@ -54,7 +54,7 @@ if __name__ == '__main__':
     for i in range(1,len(the_file_list)-1):
 
         tmp_str = the_file_list[i]
-        print('current line :',tmp_str)
+        # print('current line :',tmp_str)
         all_data[i,0] = timestampconvert(tmp_str.split(',')[0])
         for j in range(1,len(tmp_str.split(','))-1):
             all_data[i,j] = float(tmp_str.split(',')[j])
@@ -65,6 +65,8 @@ if __name__ == '__main__':
     plt.figure()
     plt.plot(all_data[:,0])
     plt.grid()
+
+    print('average time interval :', np.mean(all_data[1:,0]-all_data[:-1,0]))
 
     plt.figure()
     plt.plot(all_data[:,1],all_data[:,2])

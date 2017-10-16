@@ -29,7 +29,7 @@ import time
 
 
 def timestampconvert(str='10-04-31-73'):
-    print(str)
+    # print(str)
     the_time = 0.0
     for i in range(3):
         # print(i)
