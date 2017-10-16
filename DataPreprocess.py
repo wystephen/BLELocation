@@ -75,6 +75,7 @@ if __name__ == '__main__':
         plt.plot(all_data[:,i],'.-')
     plt.grid()
 
+
     plt.figure()
     for i in range(3,10):
         plt.plot(all_data[:,i],'-*',label=str(i-2))
