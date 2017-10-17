@@ -91,7 +91,13 @@ if __name__ == '__main__':
             matrix_dis[i,j] = np.linalg.norm(all_data[i,3:]-all_data[j,3:])
 
     plt.figure()
+    plt.title('rssi distance')
     plt.imshow(matrix_dis)
+
+    plt.figure()
+    plt.title('rssi matrix')
+    plt.imshow(all_data[:,3:])
+
 
     plt.show()
 
