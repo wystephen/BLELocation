@@ -23,7 +23,6 @@
          佛祖保佑       永无BUG 
 '''
 
-
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
@@ -31,31 +30,41 @@ import matplotlib.pyplot as plt
 from TimeStampConvert import timestampconvert
 
 import os
+
 if __name__ == '__main__':
 
     dir_name = '/home/steve/Data/BLELocation/src_data/'
     file_name = os.listdir(dir_name)[0]
 
-    the_file = open(dir_name+file_name)
+    the_file = open(dir_name + file_name)
     lines_str = the_file.readlines()
 
-
-    data = np.zeros([len(lines_str),81])
+    data = np.zeros([len(lines_str), 81])
 
     for i in range(data.shape[0]):
         tmp_str = lines_str[i]
-        data[i,0] = timestampconvert(tmp_str.split(',')[0])
+        data[i, 0] = timestampconvert(tmp_str.split(',')[0])
 
-        for j in range(1,data.shape[1]):
-            data[i,j] = float(tmp_str.split(',')[j*2])
-
+        for j in range(1, data.shape[1]):
+            data[i, j] = float(tmp_str.split(',')[j * 2])
 
     plt.figure()
     plt.title('all data')
-    plt.imshow(data[:,1:])
+    plt.imshow(data[:, 1:])
     plt.grid()
+
+    distance_matrix = np.zeros([data.shape[0], data.shape[0]])
+    for i in range(distance_matrix.shape[0]):
+        for j in range(distance_matrix.shape[1]):
+            distance_matrix[i, j] = np.linalg.norm(data[i, 1:] - data[j, 1:])
+    plt.figure()
+    plt.title('all distance ')
+    plt.imshow(distance_matrix)
+
+    # add
+
+
 
 
 
     plt.show()
-
