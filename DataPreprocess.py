@@ -82,6 +82,17 @@ if __name__ == '__main__':
     for i in range(3,10):
         plt.plot(all_data[:,i],'-*',label=str(i-2))
     plt.legend()
+
+
+
+    matrix_dis = np.zeros([all_data.shape[0],all_data.shape[0]])
+    for i in range(all_data.shape[0]):
+        for j in range(all_data.shape[0]):
+            matrix_dis[i,j] = np.linalg.norm(all_data[i,3:]-all_data[j,3:])
+
+    plt.figure()
+    plt.imshow(matrix_dis)
+
     plt.show()
 
 
