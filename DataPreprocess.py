@@ -31,12 +31,13 @@ import scipy as sp
 import pandas
 
 from TimeStampConvert import timestampconvert
+from SmoothRssi import smoothrssi
 
 import os
 
 if __name__ == '__main__':
 
-    dir_name = '/home/steve/Data/BLELocation/4/'
+    dir_name = '/home/steve/Data/BLELocation/3/'
 
     the_file_list = list()
 
@@ -62,6 +63,8 @@ if __name__ == '__main__':
 
     all_data = all_data[1:,:]*1.0
     ### time,x,y, rssi0,rssi1 .... rssi n
+
+    all_data = smoothrssi(all_data,3.0)
     plt.figure()
     plt.title('time stamp')
     plt.plot(all_data[:,0],'-*')

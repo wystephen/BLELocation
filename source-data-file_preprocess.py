@@ -28,6 +28,7 @@ import scipy as sp
 import matplotlib.pyplot as plt
 
 from TimeStampConvert import timestampconvert
+from SmoothRssi import smoothrssi
 from Rssi2Dis import rssi2dis
 
 import os
@@ -66,33 +67,34 @@ if __name__ == '__main__':
     plt.imshow(distance_matrix)
     print(data)
 
-    # add
-    initial_val = data[0, 1:]*1.0
-    initial_time = np.zeros_like(initial_val)
-    initial_time += data[0, 0]
-
-    new_data = np.zeros_like(data)
-
-    for i in range(data.shape[0]):
-
-        # updata intiial_val
-        for j in range(1, data.shape[1]):
-            if data[i, j] < 0.0:
-                initial_val[j - 1] = data[i, j]
-                initial_time[j - 1] = data[i, 0]
-
-        # clear initial val
-        for j in range(1, data.shape[1]):
-            if data[i, 0] - initial_time[j - 1] > 2.0:
-                initial_val[j-1] = 0.0
-
-        new_data[i, 0] = data[i, 0] * 1.0
-        new_data[i, 1:] = initial_val * 1.0
-        print(i,':')
-        print(data[i,1:])
-        print(new_data[i,1:])
-
-    data = new_data * 1.0
+    # # add
+    # initial_val = data[0, 1:]*1.0
+    # initial_time = np.zeros_like(initial_val)
+    # initial_time += data[0, 0]
+    #
+    # new_data = np.zeros_like(data)
+    #
+    # for i in range(data.shape[0]):
+    #
+    #     # updata intiial_val
+    #     for j in range(1, data.shape[1]):
+    #         if data[i, j] < 0.0:
+    #             initial_val[j - 1] = data[i, j]
+    #             initial_time[j - 1] = data[i, 0]
+    #
+    #     # clear initial val
+    #     for j in range(1, data.shape[1]):
+    #         if data[i, 0] - initial_time[j - 1] > 2.0:
+    #             initial_val[j-1] = 0.0
+    #
+    #     new_data[i, 0] = data[i, 0] * 1.0
+    #     new_data[i, 1:] = initial_val * 1.0
+    #     print(i,':')
+    #     print(data[i,1:])
+    #     print(new_data[i,1:])
+    #
+    # data = new_data * 1.0
+    data = smoothrssi(data)
 
     print(data)
 
