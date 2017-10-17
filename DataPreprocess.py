@@ -36,7 +36,7 @@ import os
 
 if __name__ == '__main__':
 
-    dir_name = '/home/steve/Data/BLELocation/1/'
+    dir_name = '/home/steve/Data/BLELocation/3/'
 
     the_file_list = list()
 
@@ -96,7 +96,9 @@ if __name__ == '__main__':
 
     plt.figure()
     plt.title('rssi matrix')
-    plt.imshow(all_data[:,3:])
+    plt.imshow(all_data[:,3:].transpose())
+    plt.xlim((0,all_data.shape[1]-3))
+    plt.ylim((0,all_data.shape[0]))
 
 
     plt.show()
