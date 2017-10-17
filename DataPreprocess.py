@@ -36,7 +36,7 @@ import os
 
 if __name__ == '__main__':
 
-    dir_name = '/home/steve/Data/BLELocation/3/'
+    dir_name = '/home/steve/Data/BLELocation/4/'
 
     the_file_list = list()
 
@@ -63,7 +63,12 @@ if __name__ == '__main__':
     all_data = all_data[1:,:]*1.0
     ### time,x,y, rssi0,rssi1 .... rssi n
     plt.figure()
+    plt.title('time stamp')
     plt.plot(all_data[:,0],'-*')
+    plt.grid()
+    plt.figure()
+    plt.title('time interval')
+    plt.plot(all_data[1:,0]-all_data[:-1,0],'-*')
     plt.grid()
 
     print('average time interval :', np.mean(all_data[1:,0]-all_data[:-1,0]))
