@@ -81,14 +81,45 @@ if __name__ == '__main__':
     print('all time sum : ', all_time_sum)
 
     # print('mac dic: ',mac_dic)
-    first_time = timestampconvert(the_file_list[-1].split(',')[0])
+    # Build rssi vector
+    first_time = timestampconvert(the_file_list[0].split(',')[0])
 
     time_interval = 1.0
+    valid_time = 2.0
     all_data = np.zeros([math.ceil(all_time_sum / time_interval), len(mac_dic) + 3])
 
     file_index = 0
+    all_beacon_rssi = np.zeros(len(mac_dic))
+    all_beacon_time = np.zeros(len(mac_dic))
     for i in range(all_data.shape[0]):
-        the_line_time = timestampconvert(the_file_list[file_index].split(',')[0])
+        the_all_data_time = i * time_interval * 1.0 + first_time
+        all_data[i, 0] = the_all_data_time
+        # read rssi data
+        while_flag = True
+        while while_flag:
+            if file_index < len(the_file_list):
+                the_line_time = timestampconvert(the_file_list[file_index].split(',')[0])
+                print(i,the_all_data_time-the_line_time)
+
+
+                if (the_line_time > the_all_data_time):
+                    while_flag = False
+                    break
+                else:
+                    mac_dic_index = mac_dic.index(the_file_list[file_index].split(',')[1])
+                    all_beacon_rssi[mac_dic_index] = the_file_list[file_index].split(',')[2]
+                    all_beacon_time[mac_dic_index] = the_line_time
+                    file_index += 1
+            else:
+                while_flag = False
+
+        # check time
+        for j in range(all_beacon_rssi.shape[0]):
+            if all_beacon_time[j] + valid_time < the_all_data_time:
+                all_beacon_rssi[j] = 0.0
+
+        # save
+        all_data[i, 3:] = all_beacon_rssi
 
     # all_data = smoothrssi(all_data,2.0)
     plt.figure()
