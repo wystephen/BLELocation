@@ -85,7 +85,7 @@ if __name__ == '__main__':
     first_time = timestampconvert(the_file_list[0].split(',')[0])
 
     time_interval = 1.0
-    valid_time = 2.0
+    valid_time = 1.0
     all_data = np.zeros([math.ceil(all_time_sum / time_interval), len(mac_dic) + 3])
 
     file_index = 0
