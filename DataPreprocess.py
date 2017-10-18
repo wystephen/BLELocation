@@ -23,7 +23,6 @@
          佛祖保佑       永无BUG 
 '''
 
-
 import matplotlib.pyplot as  plt
 
 import numpy as np
@@ -37,7 +36,7 @@ import os
 
 if __name__ == '__main__':
 
-    dir_name = '/home/steve/Data/BLELocation/3/'
+    dir_name = '/home/steve/Data/BLELocation/4/'
 
     the_file_list = list()
 
@@ -50,53 +49,49 @@ if __name__ == '__main__':
 
     print(len(the_file_list[1].split(',')))
 
-    all_data = np.zeros([len(the_file_list)-1,len(the_file_list)-1])
+    all_data = np.zeros([len(the_file_list) - 1, len(the_file_list) - 1])
 
-    for i in range(1,len(the_file_list)-1):
+    for i in range(1, len(the_file_list) - 1):
 
         tmp_str = the_file_list[i]
-        # print('current line :',tmp_str)
-        all_data[i,0] = timestampconvert(tmp_str.split(',')[0])
-        for j in range(1,len(tmp_str.split(','))-1):
-            all_data[i,j] = float(tmp_str.split(',')[j])
+        print('current line :', tmp_str)
+        all_data[i, 0] = timestampconvert(tmp_str.split(',')[0])
+        for j in range(1, len(tmp_str.split(',')) - 1):
+            all_data[i, j] = float(tmp_str.split(',')[j])
 
-
-    all_data = all_data[1:,:]*1.0
+    all_data = all_data[1:, :] * 1.0
     ### time,x,y, rssi0,rssi1 .... rssi n
 
-    all_data = smoothrssi(all_data,3.0)
+    # all_data = smoothrssi(all_data,2.0)
     plt.figure()
     plt.title('time stamp')
-    plt.plot(all_data[:,0],'-*')
+    plt.plot(all_data[:, 0], '-*')
     plt.grid()
     plt.figure()
     plt.title('time interval')
-    plt.plot(all_data[1:,0]-all_data[:-1,0],'-*')
+    plt.plot(all_data[1:, 0] - all_data[:-1, 0], '-*')
     plt.grid()
 
-    print('average time interval :', np.mean(all_data[1:,0]-all_data[:-1,0]))
+    print('average time interval :', np.mean(all_data[1:, 0] - all_data[:-1, 0]))
 
     plt.figure()
-    plt.plot(all_data[:,1],all_data[:,2],'-*')
+    plt.plot(all_data[:, 1], all_data[:, 2], '-*')
     plt.grid()
 
     plt.figure()
-    for i in range(3,all_data.shape[1]):
-        plt.plot(all_data[:,i],'.-')
+    for i in range(3, all_data.shape[1]):
+        plt.plot(all_data[:, i], '.-')
     plt.grid()
 
-
     plt.figure()
-    for i in range(3,10):
-        plt.plot(all_data[:,i],'-*',label=str(i-2))
+    for i in range(3, 10):
+        plt.plot(all_data[:, i], '-*', label=str(i - 2))
     plt.legend()
 
-
-
-    matrix_dis = np.zeros([all_data.shape[0],all_data.shape[0]])
+    matrix_dis = np.zeros([all_data.shape[0], all_data.shape[0]])
     for i in range(all_data.shape[0]):
         for j in range(all_data.shape[0]):
-            matrix_dis[i,j] = np.linalg.norm(all_data[i,3:]-all_data[j,3:])
+            matrix_dis[i, j] = np.linalg.norm(all_data[i, 3:] - all_data[j, 3:])
 
     plt.figure()
     plt.title('rssi distance')
@@ -104,12 +99,8 @@ if __name__ == '__main__':
 
     plt.figure()
     plt.title('rssi matrix')
-    plt.imshow(all_data[:,3:].transpose())
-    plt.xlim((0,all_data.shape[1]-3))
-    plt.ylim((0,all_data.shape[0]))
-
+    plt.imshow(all_data[:, 3:].transpose())
+    plt.xlim((0, all_data.shape[1] - 3))
+    plt.ylim((0, all_data.shape[0]))
 
     plt.show()
-
-
-

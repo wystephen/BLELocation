@@ -26,6 +26,12 @@
 import numpy as np
 
 def smoothrssi(data,constant_time = 2.0):
+    '''
+
+    :param data: time,rssi0, rssi1 ...rssi80
+    :param constant_time:
+    :return:
+    '''
     initial_val = data[0, 1:]*1.0
     initial_time = np.zeros_like(initial_val)
     initial_time += data[0, 0]
