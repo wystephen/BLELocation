@@ -23,6 +23,7 @@
          佛祖保佑       永无BUG 
 '''
 
+import math
 import matplotlib.pyplot as  plt
 
 import numpy as np
@@ -36,7 +37,7 @@ import os
 
 if __name__ == '__main__':
 
-    dir_name = '/home/steve/Data/BLELocation/6/'
+    dir_name = '/home/steve/Data/BLELocation/5/'
 
     the_file_list = list()
 
@@ -64,12 +65,30 @@ if __name__ == '__main__':
     '''
     Find all MAC
     '''
-    mac_dic = dict()
+    mac_dic = list()
 
-    for tmp_str in the_file_list:
+    for i in range(len(the_file_list)):
+        tmp_str = the_file_list[i]
         mac_str = tmp_str.split(',')[1]
-        if not mac_str in mac_dic:
+        # print(i,mac_str)
+        if mac_str in mac_dic:
+            print('current index:', mac_dic.index(mac_str))
+        else:
+            mac_dic.append(mac_str)
 
+    all_time_sum = float(timestampconvert(the_file_list[-1].split(',')[0]) -
+                         timestampconvert(the_file_list[0].split(',')[0]))
+    print('all time sum : ', all_time_sum)
+
+    # print('mac dic: ',mac_dic)
+    first_time = timestampconvert(the_file_list[-1].split(',')[0])
+
+    time_interval = 1.0
+    all_data = np.zeros([math.ceil(all_time_sum / time_interval), len(mac_dic) + 3])
+
+    file_index = 0
+    for i in range(all_data.shape[0]):
+        the_line_time = timestampconvert(the_file_list[file_index].split(',')[0])
 
     # all_data = smoothrssi(all_data,2.0)
     plt.figure()
