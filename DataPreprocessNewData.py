@@ -99,10 +99,9 @@ if __name__ == '__main__':
         while while_flag:
             if file_index < len(the_file_list):
                 the_line_time = timestampconvert(the_file_list[file_index].split(',')[0])
-                print(i,the_all_data_time-the_line_time)
+                # print(i, the_all_data_time - the_line_time)
 
-
-                if (the_line_time > the_all_data_time):
+                if the_line_time > the_all_data_time:
                     while_flag = False
                     break
                 else:
@@ -121,6 +120,7 @@ if __name__ == '__main__':
         # save
         all_data[i, 3:] = all_beacon_rssi
 
+    print('alldata shape:',all_data.shape)
     # all_data = smoothrssi(all_data,2.0)
     plt.figure()
     plt.title('time stamp')
@@ -159,7 +159,7 @@ if __name__ == '__main__':
     plt.figure()
     plt.title('rssi matrix')
     plt.imshow(all_data[:, 3:].transpose())
-    plt.xlim((0, all_data.shape[1] - 3))
-    plt.ylim((0, all_data.shape[0]))
+    # plt.xlim((0, all_data.shape[1] - 3))
+    # plt.ylim((0, all_data.shape[0]))
 
     plt.show()
