@@ -88,6 +88,7 @@ if __name__ == '__main__':
     valid_time = 1.0
     all_data = np.zeros([math.ceil(all_time_sum / time_interval), len(mac_dic) + 3])
 
+
     file_index = 0
     all_beacon_rssi = np.zeros(len(mac_dic))
     all_beacon_time = np.zeros(len(mac_dic))
