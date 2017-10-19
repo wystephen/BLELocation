@@ -27,7 +27,7 @@ import numpy as np
 
 def smoothrssi(data,constant_time = 2.0):
     '''
-
+    smooth rssi according to max valid time.
     :param data: time,rssi0, rssi1 ...rssi80
     :param constant_time:
     :return:

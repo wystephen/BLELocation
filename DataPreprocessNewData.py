@@ -37,7 +37,7 @@ import os
 
 if __name__ == '__main__':
 
-    dir_name = '/home/steve/Data/BLELocation/5/'
+    dir_name = '/home/steve/Data/BLELocation/7/'
 
     the_file_list = list()
 
