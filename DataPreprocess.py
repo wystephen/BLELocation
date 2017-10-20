@@ -36,7 +36,7 @@ import os
 
 if __name__ == '__main__':
 
-    dir_name = '/home/steve/Data/BLELocation/4/'
+    dir_name = '/home/steve/Data/BLELocation/6/'
 
     the_file_list = list()
 
@@ -55,7 +55,8 @@ if __name__ == '__main__':
 
         tmp_str = the_file_list[i]
         print('current line :', tmp_str)
-        all_data[i, 0] = timestampconvert(tmp_str.split(',')[0])
+
+        # all_data[i, 0] = timestampconvert(tmp_str.split(',')[0])
         for j in range(1, len(tmp_str.split(',')) - 1):
             all_data[i, j] = float(tmp_str.split(',')[j])
 
