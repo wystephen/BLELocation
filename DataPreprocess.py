@@ -104,4 +104,19 @@ if __name__ == '__main__':
     plt.xlim((0, all_data.shape[1] - 3))
     plt.ylim((0, all_data.shape[0]))
 
+    rearraged_data = all_data[:, 3:]
+
+    first_time_index = np.zeros(rearraged_data.shape[1]) - 1
+    for i in range(rearraged_data.shape[0]):
+        for j in range(rearraged_data.shape[1]):
+            if rearraged_data[i, j] < 0.0 and first_time_index[j] < 1.0:
+                first_time_index[j] = i
+    print(np.argsort(first_time_index))
+
+    rearraged_data = rearraged_data[:, np.argsort(first_time_index)] * 1.0
+
+    plt.figure()
+    plt.imshow(rearraged_data.transpose())
+    np.savetxt('/home/steve/rearraged_data.csv', rearraged_data, delimiter=',')
+
     plt.show()
